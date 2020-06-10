@@ -1,15 +1,20 @@
+# Use the official image as a parent image.
 FROM node:carbon
 
-# create work directory
+# Set the working directory.
 WORKDIR /usr/src/app
 
-# copy package.json
+# Copy the file from your host to your current location.
 COPY package.json .
+
+# Run the command inside your image filesystem.
 RUN npm install
 
-# copy source code
+# Copy the rest of your app's source code from your host to your image filesystem.
 COPY . .
 
-EXPOSE 8080
+# Inform Docker that the container is listening on the specified port at runtime.
+EXPOSE 10000
 
+# Run the specified command within the container.
 CMD ["npm", "start"]
