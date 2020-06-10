@@ -4,12 +4,12 @@ FROM node:carbon
 WORKDIR /usr/src/app
 
 # copy package.json
-COPY package.json ./
+COPY package.json .
 RUN npm install
 
 # copy source code
 COPY . .
 
-EXPOSE 10000
+EXPOSE 8080
 
 CMD ["npm", "start"]

@@ -4,46 +4,46 @@ const app = express();
 
 const customers = [
   {
-    id: 5,
-    first_name: 'Dodol',
-    last_name: 'Dargombez'
+    id: 1,
+    first_name: 'Ian',
+    last_name: 'Lightfoot'
   },
   {
     id: 6,
-    first_name: 'Nyongot',
-    last_name: 'Gonzales'
+    first_name: 'Barley',
+    last_name: 'Lightfood'
   }
 ];
 
 const clients = [
   {
     id: 1,
-    first_name: 'Haha',
-    last_name: 'Hehe'
+    first_name: 'Manticore',
+    last_name: 'Spencer'
   },
   {
     id: 2,
-    first_name: 'Lala',
-    last_name: 'Lili'
+    first_name: 'Laurel',
+    last_name: 'Dreyfus'
   }
 ];
 
 app.use(bodyParser.json());
 
-app.get('/customers', (req, res) => {
+app.get('/api/v1/customers', (req, res) => {
   console.log(JSON.stringify(req.headers));
   res.json(customers);
 });
 
-app.get('/customers/:id', (req, res) => {
+app.get('/api/v1/customers/:id', (req, res) => {
   res.json(customers[req.params.id]);
 });
 
-app.get('/clients', (req, res) => {
+app.get('/api/v1/clients', (req, res) => {
   res.json(clients);
 });
 
-app.get('/clients/:id', (req, res) => {
+app.get('/api/v1/clients/:id', (req, res) => {
   res.json(clients[req.params.id]);
 });
 
