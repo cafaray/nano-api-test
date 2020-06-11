@@ -229,9 +229,7 @@ So, when client request to kong (in this case kong is live at localhost:8000) wi
 
 Kong will proxy it to {{ip_node_kong}}:10000/api/v1/customers
 
-To setup your services, go to source documentation for get a guide fot it
-
-https://docs.konghq.com/2.0.x/getting-started/configuring-a-service/
+To setup your services, go to source documentation for get a guide fot it [here](https://docs.konghq.com/2.0.x/getting-started/configuring-a-service/)
 
 **Create a service in Kong**
 
@@ -249,6 +247,7 @@ https://docs.konghq.com/2.0.x/getting-started/configuring-a-service/
 `curl --location --request DELETE 'localhost:8001/services/$KONG_SERVICE_ID'`
 
 **Create a route for the service.**
+
 the path "/" should allow to invoke the path defined in the app, in our case we have:
 
 - /customers
@@ -261,32 +260,37 @@ curl --location --request POST 'localhost:8001/services/api-v1/routes/' \
 ```
 
 **Get the routes from Kong**
+
 `curl --location --request GET 'localhost:8001/routes'`
 
 **Test the service -> route -> backend**
+
 `curl --location --request GET 'localhost:8000/customers' --header 'Host: apitrain2o2o'`
 
-At this moment, Kong is working as a proxy, routing requests from localhost:8000 -> {{ip_node_kong}}:10000/api/v1
+> At this moment, Kong is working as a proxy, routing requests from localhost:8000 -> {{ip_node_kong}}:10000/api/v1
 
 **Secure the endpoints**
+
 First start with simple basic authentication through API-KEY token plugin, more details in plugins [here](https://docs.konghq.com/hub/)
 
 `curl -i -X POST --url http://localhost:8001/services/api-v1/plugins/ --data 'name=key-auth'`
 
-Invoke to customers o clients application endpoint and verify that the plugin is properly configured
-
-```
-{
-    "message": "No API key found in request”
-}
-```
+>Invoke to customers o clients application endpoint and verify that the plugin is properly configured
+>
+>```
+>{
+>    "message": "No API key found in request”
+>}
+>```
 
 **Set the consumer**
+
 Create a consumer for the customer and clients app endpoints, in this way the consumer will be identified
 
 `curl -i -X POST --url http://localhost:8001/consumers/ --data "username=dash@i.db.com"`
 
 Response like this:
+
 ```
 HTTP/1.1 201 
 CreatedDate: Thu, 11 Jun 2020 08:46:07 GMT
@@ -306,11 +310,13 @@ X-Kong-Admin-Latency: 5
 ```
 
 **Provision key credentials**
+
 Grant the recent consumer with an apikey for consume app’s endpoints
 
 `curl -i -X POST --url http://localhost:8001/consumers/8df0ede6-1116-41b5-a632-125401c2aadd/key-auth/ --data 'key=MTU4NDgyNzc3MmRhc2hAaS5kYi5jb20K'`
 
 The response:
+
 ```
 HTTP/1.1 201 
 CreatedDate: Thu, 11 Jun 2020 08:49:27 GMT
@@ -333,11 +339,13 @@ X-Kong-Admin-Latency: 7
 ```
 
 **Test the apikey token**
+
 Set the api key in the param section to test apikey token is working properly:
 
 `curl --location --request GET 'localhost:8000/customers' --header 'Host: apitrain2o2o' --header 'apikey: MTU4NDgyNzc3MmRhc2hAaS5kYi5jb20K'`
 
 Response expected:
+
 ```
 [
     {
