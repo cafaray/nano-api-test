@@ -1,12 +1,16 @@
 # nano-api-test
 
+This project pretends help you to install Kong, configure as api-gateway and set a basic security for the api-call. This was prepared as part of the API Training 2o2o - API management track.
+
 ## Create a docker network
+
 This network will be use for kong and our API server:
 
 `docker network create kong-net`
 
 ## Start database for Kong
 There is two option database : Postgres or Cassandra. For this sample we use postgres.
+
 ```
 docker run -d --name kong-database \
 --network=kong-net \
@@ -42,6 +46,7 @@ Database is up-to-date
 ## Start a kong container
 Once the migrations have run and your database is ready, .
 in this case, we are using the
+
 - port 8000/8443 to get access to KONG
 - port 8001/8444 to get access to Admin KONG
 
@@ -65,7 +70,8 @@ kong:latest
 ```
 
 ## Check Kong Instance
-Invoke
+
+Be sure the kong admin is running, for this invoke
 
 `curl -i http://localhost:8001`
 
@@ -96,6 +102,7 @@ fi
 ## Test Kong API Gateway
 
 ### Set a (nano) API Rest for test Kong
+
 The next thing is prepare an API server that contain service routes and can be accessed as REST API use to be.
 
 ```
@@ -124,22 +131,19 @@ run the docker container
 
 `docker run -d --name=node_kong --network=kong-net node_kong`
 
-### verify you have the three components needed
+**verify you have the three components needed**
 
 `docker ps -a`
 
 The result is something like this:
 
-d13586f83e52     node_kong       “npm start” 2 minutes ago Up 2 minutes         10000/tcp node_kong 
-41156cad5c86     kong:latest     “/docker-entrypoint.…” 6 days ago Up 6 days    0.0.0.0:9000->8000/tcp,   kong 
-                                                                                0.0.0.0:9001->8001/tcp,
-                                                                                0.0.0.0:9443->8443/tcp,
-                                                                                0.0.0.0:9444->8444/tcp 
-f794a0e9506c     postgres:9.6    “docker-entrypoint.s…” 6 days ago Up 6 days    0.0.0.0:5555->5432/tcp    kong-database
+|d13586f83e52|     node_kong|       “npm start” 2 minutes ago |Up 2 minutes|         10000/tcp |node_kong |
+|41156cad5c86|     kong:latest|     “/docker-entrypoint.…” 6 days ago| Up 6 days|    0.0.0.0:9000->8000/tcp,0.0.0.0:9001->8001/tcp,0.0.0.0:9443->8443/tcp,0.0.0.0:9444->8444/tcp |kong|
+|f794a0e9506c|     postgres:9.6|    “docker-entrypoint.s…” 6 days ago| Up 6 days|    0.0.0.0:5555->5432/tcp|    kong-database|
 
-Check API server by access its API.
-We need to get IP container on docker network kong-net.
-After that get into container kong shell and check the API from it.
+**Check API server by access its API.**
+
+We need to get IP container on docker network kong-net. After that get into container kong shell and check the API from it.
 
 `docker network inspect kong-net`
 
@@ -221,13 +225,13 @@ We set the next route path
 
 And set the service host to 
 
-**http://{{ip_node_kong}}:10000/api/v1/customers**
+`http://{{ip_node_kong}}:10000/api/v1/customers`
 
 So, when client request to kong (in this case kong is live at localhost:8000) with path route /api/v1/customer : in complete client request:
 
-**http://localhost:8000/customers**
+`http://localhost:8000/customers`
 
-Kong will proxy it to {{ip_node_kong}}:10000/api/v1/customers
+Kong will proxy it to: `*{{ip_node_kong}}:10000/api/v1/customers*`
 
 To setup your services, go to source documentation for get a guide fot it [here](https://docs.konghq.com/2.0.x/getting-started/configuring-a-service/)
 
