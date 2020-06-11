@@ -367,7 +367,7 @@ Response expected:
 
 Find more info about this plugin [here](https://docs.konghq.com/hub/kong-inc/key-auth/)
 
-## AN alternative
+## An alternative
 
 An alternative in the use ok Kong from command line is use a interface friendly like [Konga](https://pantsel.github.io/konga/)
 
