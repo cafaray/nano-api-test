@@ -136,10 +136,11 @@ run the docker container
 `docker ps -a`
 
 The result is something like this:
-
-|d13586f83e52|     node_kong|       “npm start” 2 minutes ago |Up 2 minutes|         10000/tcp |node_kong |
-|41156cad5c86|     kong:latest|     “/docker-entrypoint.…” 6 days ago| Up 6 days|    0.0.0.0:9000->8000/tcp,0.0.0.0:9001->8001/tcp,0.0.0.0:9443->8443/tcp,0.0.0.0:9444->8444/tcp |kong|
-|f794a0e9506c|     postgres:9.6|    “docker-entrypoint.s…” 6 days ago| Up 6 days|    0.0.0.0:5555->5432/tcp|    kong-database|
+|CONTAINER ID|IMAGE|COMMAND|CREATED|STATUS|PORTS|NAMES|
+|------------|-----|-------|-------|------|-----|-----|
+|d13586f83e52|node_kong|“npm start”|2 minutes ago|Up 2 minutes|10000/tcp|node_kong |
+|41156cad5c86|kong:latest|“/docker-entrypoint.…”|6 days ago|Up 6 days|0.0.0.0:9000->8000/tcp,0.0.0.0:9001->8001/tcp,0.0.0.0:9443->8443/tcp,0.0.0.0:9444->8444/tcp|kong|
+|f794a0e9506c|postgres:9.6|“docker-entrypoint.s…"|6 days ago|Up 6 days|0.0.0.0:5555->5432/tcp|kong-database|
 
 **Check API server by access its API.**
 
@@ -367,8 +368,56 @@ Response expected:
 
 Find more info about this plugin [here](https://docs.konghq.com/hub/kong-inc/key-auth/)
 
-## An alternative
+## Use an UI for kong
 
-An alternative in the use ok Kong from command line is use a interface friendly like [Konga](https://pantsel.github.io/konga/)
+An alternative for use Kong is to use an interface like [Konga](https://pantsel.github.io/konga/)
+
+**Installing konga**
+
+You can install Konga as a nodejs application or as a docker container. In our case we rather docker, as Kong also is running under docker and a docker network.
+
+`docker run -d -p 1337:1337 --network kong-net --name konga -e "NODE_ENV=development" -e "TOKEN_SECRET=mysecret" pantsel/konga`
+
+Take a look to the docker running table and verify Konga is up
+
+`docker ps -a`
+
+|CONTAINER ID|IMAGE|COMMAND|CREATED|STATUS|PORTS|NAMES|
+|------------|-----|-------|-------|------|-----|-----|
+|df3f55406f57|pantsel/konga|"/app/start.sh"|37 minutes ago|Up 37 minutes|0.0.0.0:1337->1337/tcp|konga|
+|8fe52fb74241|node_kong|"docker-entrypoint.s…"|39 hours ago|Up 39 hours|8080/tcp|node_konge|
+|6c47895a0bb|kong:latest|"/docker-entrypoint.…"|2 days ago|Up 2 days|0.0.0.0:8000->8000/tcp, 127.0.0.1:8001->8001/tcp, 0.0.0.0:8443->8443/tcp, 127.0.0.1:8444->8444/tcp|kong|
+|3d610b03bdcd|postgres:9.6|"docker-entrypoint.s…"|2 days ago|Up 2 days|0.0.0.0:5432->5432/tcp|kong-database|
+
+As you can see, it’s running on port 1337, so let’s gonna try 
+
+`curl -I localhost:1337`
+
+```
+Response
+HTTP/1.1 302 Found
+X-Powered-By: Sails <sailsjs.org>
+Location: /register
+Vary: Accept
+Content-Type: text/plain; charset=UTF-8
+Content-Length: 31
+Date: Fri, 12 Jun 2020 06:56:08 GMT
+Connection: keep-alive
+```
+
+**Configure Konga to use Kong**
+
+The Konga wellcome page invites you to create the admin user at first time, so provide the required info to logon
+
+Once did it, go below in the next page and set the next values to the connection fields:
+
+**Name**: *kong-net*
+**Kong Admin URL**: *http://172.19.0.3*
+
+> *Note. Remember that Kong is running in a docker container, so you must provide the IP of the container.*
+
+Click on the “**Create connection**” button and you will see the Dashboard. 
+
+More info about konga [here](https://hub.docker.com/r/pantsel/konga/)
 
 Here an interesting video about API Management [API Management](https://www.youtube.com/watch?v=U2GUzfrkRiA)
