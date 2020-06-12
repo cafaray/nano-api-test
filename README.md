@@ -418,6 +418,8 @@ Once did it, go below in the next page and set the next values to the connection
 
 Click on the “**Create connection**” button and you will see the Dashboard. 
 
-More info about konga [here](https://hub.docker.com/r/pantsel/konga/)
+More info about [konga installation](https://hub.docker.com/r/pantsel/konga/)
 
-Here an interesting video about API Management [API Management](https://www.youtube.com/watch?v=U2GUzfrkRiA)
+## Some interesting link
+
+[Curso de API Management](https://www.youtube.com/watch?v=U2GUzfrkRiA)
