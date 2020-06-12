@@ -1,0 +1,761 @@
+{
+	"info": {
+		"_postman_id": "0da6e920-fe64-47d7-ad0e-ff7ecd86144f",
+		"name": "Kong",
+		"description": "This collection is for tutorial KONG basic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Services",
+			"item": [
+				{
+					"name": "Services - List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/services",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Services - Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"api-v1\",\n  \"url\": \"http://172.18.0.4:10000/api/v1\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/services/",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"services",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Services - Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/services/223e027c-afcd-4b5b-86b2-b8691ee70d1d",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"services",
+								"223e027c-afcd-4b5b-86b2-b8691ee70d1d"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Routes",
+			"item": [
+				{
+					"name": "Routes - List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/routes",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"routes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Routes - Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"hosts\": [\"apitrain2o2o\"],\n  \"paths\": [\"/\"]\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/services/api-v1/routes/",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"services",
+								"api-v1",
+								"routes",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Routes - Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/routes/5f562440-bd5d-4a72-a238-14899577f2c7",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"routes",
+								"5f562440-bd5d-4a72-a238-14899577f2c7"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Plugin",
+			"item": [
+				{
+					"name": "Plugins - Enabled",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/plugins/enabled",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"plugins",
+								"enabled"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Plugins - List All Plugins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/plugins",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"plugins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Plugin - Add service to OAuth",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"oauth2\",\n  \"config.scopes\": [\"read\", \"write\"],\n  \"config.mandatory_scope\": true,\n  \"config.enable_password_grant\": true,\n  \"config.accept_http_if_already_terminated\": true,\n  \"config.token_expiration\": 180,\n  \"config.global_credentials\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/services/api-v1/plugins",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"services",
+								"api-v1",
+								"plugins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Plugin - Delete service to OAuth",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/plugins/4f1dbb44-bb51-49b3-80d5-b0a5ac4f7caf",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"plugins",
+								"4f1dbb44-bb51-49b3-80d5-b0a5ac4f7caf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Plugin - Add service to ACL",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"acl\",\n  \"config.whitelist\": \"group-api-v1-customers\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}}/services/api-v1-customers/plugins",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}}",
+							"path": [
+								"services",
+								"api-v1-customers",
+								"plugins"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Consumer",
+			"item": [
+				{
+					"name": "Consumers - List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}:{{port}}/consumers",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"consumers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consumers - Create",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fa5431bd-b3c0-4cf5-8f2c-394a0cbf9250",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"noone@gmail.com\",\n  \"custom_id\": \"11\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/consumers",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"consumers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consumers - Delete",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fa5431bd-b3c0-4cf5-8f2c-394a0cbf9250",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/consumers/8f46d90a-25ab-4025-90e5-fe6538b394cc",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"consumers",
+								"8f46d90a-25ab-4025-90e5-fe6538b394cc"
+							]
+						},
+						"description": "Notes:\n\n- Delete consumer also remove all plugins configuration associated with this consumer."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ApplicationOAuth2",
+			"item": [
+				{
+					"name": "OAuth - Create Application",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"APP 11\",\n  \"client_id\": \"CLIENT_ID_11\",\n  \"client_secret\": \"CLIENT_SECRET_11\",\n  \"redirect_uri\": \"http://localhost:9800/cb\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}:{{port}}/consumers/oneone@gmail.com/oauth2",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"consumers",
+								"oneone@gmail.com",
+								"oauth2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "OAuthToken",
+			"item": [
+				{
+					"name": "OAuth - Request Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Host",
+								"value": "api.ct.id"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"client_id\": \"CLIENT_ID_11\",\n  \"client_secret\": \"CLIENT_SECRET_11\",\n  \"grant_type\": \"password\",\n  \"provision_key\": \"kl3bUfe32WBcppmYFr1aZtXxzrBTL18l\",\n  \"authenticated_userid\": \"oneone@gmail.com\",\n  \"scope\": \"read\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:9443/api/v1/customers/oauth2/token/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9443",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"oauth2",
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OAuth - Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Host",
+								"value": "api.ct.id"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"grant_type\": \"refresh_token\",\n  \"client_id\": \"CLIENT_ID_11\",\n  \"client_secret\": \"CLIENT_SECRET_11\",\n  \"refresh_token\": \"halEdslDD61bTvMxUGbPbu75DxdKmWdP\"\n}"
+						},
+						"url": {
+							"raw": "https://localhost:9443/api/v1/customers/oauth2/token",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9443",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"oauth2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OAuth2 - Request token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "ACL",
+			"item": [
+				{
+					"name": "Associate Consumer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"group\": \"group-api-v1-customers\"\n}"
+						},
+						"url": {
+							"raw": "localhost:9001/consumers/oneone@gmail.com/acls",
+							"host": [
+								"localhost"
+							],
+							"port": "9001",
+							"path": [
+								"consumers",
+								"oneone@gmail.com",
+								"acls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List ACL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8001/acls",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"acls"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Customers Service",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Host",
+						"value": "apitrain2o2o"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer UYSLDGIZI8yIotLryGRp93jvF1YsYdHB",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{host}}:{{port-api}}/customers",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port-api}}",
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clients Service",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "host",
+						"value": "apitrain2o2o",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer BGIDbxk8hvzSyvxaYK8wHHzOkQyXhPpa",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "apikey",
+						"value": "MTU4NDgyNzc3MmRhc2hAaS5kYi5jb20K",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://{{host}}:{{port-api}}/clients",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port-api}}",
+					"path": [
+						"clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Plugins API-V1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/services/api-v1/plugins",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"services",
+						"api-v1",
+						"plugins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Consumer by ID",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"custom_id\": \"3001\",\n    \"username\": \"dash@i.db.com\",\n    \"tags\": [\"test-customers\", \"test-clinets\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8001/consumers/8cfbc6a6-250c-45cf-9f11-f2771f1efa91",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"consumers",
+						"8cfbc6a6-250c-45cf-9f11-f2771f1efa91"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Consumer oAuth Tokens",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Host",
+						"value": "api.ct.id",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"client_id\": \"CLIENTES_APP\",\n\t\"client_secret\": \"Y3VzdG9tZXJfYXBwLWtvbmctc2FtcGxlCg==\",\n\t\"grant_type\": \"password\",\n\t\"provision_key\":\"XG2hIn96FR1VhAhp4J1ayR09dXnffdPs\",\n\t\"authenticated_userid\": \"raja@i.db.com\",\n\t\"scope\": \"read\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/customers/oauth2/token ",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"customers",
+						"oauth2",
+						"token "
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All oAuth Tokens",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/oauth2_tokens/",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"oauth2_tokens",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Consumers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8001/consumers",
+					"host": [
+						"localhost"
+					],
+					"port": "8001",
+					"path": [
+						"consumers"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
