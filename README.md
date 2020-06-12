@@ -412,6 +412,7 @@ The Konga wellcome page invites you to create the admin user at first time, so p
 Once did it, go below in the next page and set the next values to the connection fields:
 
 **Name**: *kong-net*
+
 **Kong Admin URL**: *http://172.19.0.3*
 
 > *Note. Remember that Kong is running in a docker container, so you must provide the IP of the container.*
